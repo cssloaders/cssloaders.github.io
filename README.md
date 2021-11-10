@@ -6,9 +6,7 @@ Considering this, I tried to create a library having a collection of such loader
 ](https://cssloaders.github.io)  
 
 
-
 ![CSS loaders and spinner](https://user-images.githubusercontent.com/5153908/140634495-3ae7b6ae-8535-4e95-b76f-a4420029ca0d.gif)
-
 
 
 ## HTML
