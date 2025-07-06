@@ -1,0 +1,60 @@
+.header{
+    background: var(--header-bg);
+    padding: 0.5rem 1rem;
+    min-height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    &_brand{
+        color: var(--secondary-color);
+        font-size: 2rem;
+        display: inline-block;
+        position: relative;
+        &::before{
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 1rem;
+            border: 3px solid var(--secondary-color);
+            border-bottom-color: var(--primary-color);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+        }
+    }
+
+    > nav{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        > a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            background: var(--secondary-color);
+            background-size: 108% auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+    }
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
