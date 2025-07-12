@@ -1,7 +1,7 @@
 .outlet{
     position: relative;
     width: 100%;
-    height: calc(100vh - 7.1rem);
+    min-height: calc(100vh - 7.1rem);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
