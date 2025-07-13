@@ -1,9 +1,0 @@
-.outlet {
-  position: relative;
-  width: 100%;
-  min-height: calc(100vh - 7.1rem);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
