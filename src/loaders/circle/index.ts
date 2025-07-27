@@ -1,4 +1,4 @@
-import { getDynamicStyle } from "util";
+import { getDynamicStyle } from '../../util';
 const styleModules = import.meta.glob('./*.module.css');
 const rawModules = import.meta.glob('./*.module.css', { as: 'raw' });
 

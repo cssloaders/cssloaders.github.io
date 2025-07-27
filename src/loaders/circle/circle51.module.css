@@ -1,0 +1,17 @@
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -72px 0 #fff inset;
+  }
+  100% {
+    box-shadow: 48px 0 #fff inset;
+  }
+}

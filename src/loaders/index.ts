@@ -2,7 +2,11 @@ export const LOADERS = [
   {
     name: 'circle',
     order: 1,
-    length: 5,
-    loadStyles: () => import('./circle').then(m => m.loadCircleStyles()),
+    loadStyles: () => import('./circle').then((m) => m.loadCircleStyles()),
+  },
+  {
+    name: 'bubble',
+    order: 2,
+    loadStyles: () => import('./bubble').then((m) => m.loadBubbleStyles()),
   },
 ];

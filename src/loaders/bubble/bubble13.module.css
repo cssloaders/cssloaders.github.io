@@ -1,0 +1,24 @@
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  background: #ff3d00;
+  color: #fff;
+  box-shadow:
+    -24px 0,
+    24px 0;
+  box-sizing: border-box;
+  animation: rotation 2s ease-in-out infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

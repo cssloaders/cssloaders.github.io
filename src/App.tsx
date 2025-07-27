@@ -1,15 +1,14 @@
-import './App.scss'
-import { Header , Footer, Outlet } from './components'
+import './App.scss';
+import { Header, Footer, Outlet } from './components';
 
 function App() {
-
   return (
     <>
       <Header />
-        <Outlet />
-      <Footer/>
+      <Outlet />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

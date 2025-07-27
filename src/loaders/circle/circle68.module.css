@@ -1,0 +1,49 @@
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+.loader:before {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  transform: translate(-5px, -50%);
+  background: linear-gradient(to right, #fff 50%, #de3500 50%) no-repeat;
+  background-size: 200% auto;
+  background-position: 100% 0;
+  animation: colorBallMoveX 1.5s linear infinite alternate;
+}
+.loader:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: #de3500;
+}
+@keyframes colorBallMoveX {
+  0% {
+    background-position: 0% 0;
+    transform: translate(-15px, -50%);
+  }
+  15%,
+  25% {
+    background-position: 0% 0;
+    transform: translate(0px, -50%);
+  }
+  75%,
+  85% {
+    background-position: 100% 0;
+    transform: translate(50px, -50%);
+  }
+  100% {
+    background-position: 100% 0;
+    transform: translate(65px, -50%);
+  }
+}
