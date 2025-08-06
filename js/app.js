@@ -8,108 +8,187 @@ import { GRAPH } from './loaders/graph.js';
 import { OBJECTS } from './loaders/objects.js';
 import { SKELETON } from './loaders/skeleton.js';
 
-
-
 const LOADERS = [...CIRCLE, ...BUBBLE, ...RECT, ...LINE, ...PROGRESS, ...TEXT, ...OBJECTS, ...GRAPH , ...SKELETON ];
-
-
 const main = document.getElementById('main');
+let currentLoaderIndex = 0;
 
+const codePopupOverlay = document.querySelector('.overlay');
+const editorOverlay = document.getElementById('editor-overlay');
+const editorHtml = document.getElementById('editor-html');
+const editorCss = document.getElementById('editor-css');
+const editorPreview = document.getElementById('editor-preview');
 
-// Create Spinners 
-LOADERS.forEach((loader, i) => {    
-    // Append Loader
-    main.appendChild(createLoader(i));
+function createLoader(i) {
+    const loader = LOADERS[i];
+    const sectionEl = document.createElement('div');
+    sectionEl.className = 'section';
+    sectionEl.dataset.id = loader.id;
+    sectionEl.dataset.index = i;
+    sectionEl.style.setProperty('--order', i);
+    const shadowRoot = sectionEl.attachShadow({ mode: 'open' });
     
-})
-
-
-function createLoader(i){
-    let loader = LOADERS[i];
-   
-    // Create html
-    let sectionEl = document.createElement('div');
-    sectionEl.setAttribute('class', 'section');
-    sectionEl.setAttribute('data-id', loader.id);
-    sectionEl.setAttribute('data-index', (i + 1));
-    let shadowRoot = sectionEl.attachShadow({ mode: 'open' });
-    
-    let loaderEl = document.createElement('span');
-    loaderEl.setAttribute('class', 'loader');
-    loaderEl.innerHTML = loader.content || null;
+    const loaderEl = document.createElement('span');
+    loaderEl.className = 'loader';
+    loaderEl.innerHTML = loader.content || '';
     shadowRoot.appendChild(loaderEl);
 
-    //Create CSS 
-    let loaderStyles = document.createElement('style');
+    const loaderStyles = document.createElement('style');
     loaderStyles.type = 'text/css';
     loaderStyles.innerHTML = loader.css;
     shadowRoot.appendChild(loaderStyles);
 
-    return sectionEl
+    return sectionEl;
 }
 
+function showFeedback(button, message) {
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.classList.add('copied');
+    button.textContent = message;
 
+    setTimeout(() => {
+        button.disabled = false;
+        button.classList.remove('copied');
+        button.textContent = originalText;
+    }, 2000);
+}
 
+function updateEditorPreview() {
+    const htmlContent = editorHtml.value;
+    const cssContent = editorCss.value;
+
+    editorPreview.innerHTML = '';
+
+    const shadowHost = document.createElement('div');
+    shadowHost.style.width = '100%';
+    shadowHost.style.height = '100%';
+
+    const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+
+    shadowRoot.innerHTML = `
+        <style>
+            :host {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+            }
+            ${cssContent}
+        </style>
+        ${htmlContent}
+    `;
+    
+    editorPreview.appendChild(shadowHost);
+}
+
+LOADERS.forEach((_, i) => {
+    main.appendChild(createLoader(i));
+});
 
 document.querySelectorAll('#main .section').forEach(elm => {
     elm.addEventListener('click', (e) => {
-        let index = parseInt(e.target.dataset.index);
-        let showCase = document.querySelector('.showcase');
+        currentLoaderIndex = parseInt(e.currentTarget.dataset.index);
+        const loader = LOADERS[currentLoaderIndex];
+        const showCase = document.querySelector('.showcase');
 
-        showCase.replaceChildren(createLoader((index - 1)));
-
+        showCase.replaceChildren(createLoader(currentLoaderIndex));
+        document.querySelector('#markup').textContent = loader.html;
+        document.querySelector('#css').textContent = loader.css;
         
-        // console.log(e);
-        showCase.dataset.index = index;
-
-        // load code
-        document.querySelector('#markup').textContent = LOADERS[index - 1].html;
-        document.querySelector('#css').textContent = LOADERS[index - 1].css;
-        
-        // popup
-        document.querySelector('body').classList.add('pop')
-        document.querySelector('.overlay').classList.add('in')
-    })
-})
-
-
-// close popup
-document.querySelector('.btn-close').addEventListener('click', (e) => {
-    document.querySelector('body').classList.remove('pop')
-    document.querySelector('.overlay').classList.remove('in');
+        document.body.classList.add('pop');
+        codePopupOverlay.classList.add('in');
+    });
 });
 
-document.querySelector('.overlay').addEventListener('click', (e) => {
-    if (e.target.className === "overlay in") {
-        document.querySelector('body').classList.remove('pop')
-        document.querySelector('.overlay').classList.remove('in');
-    }
+function closePopup(overlay) {
+    document.body.classList.remove('pop');
+    overlay.classList.remove('in');
+}
+
+document.querySelector('.btn-close').addEventListener('click', () => closePopup(codePopupOverlay));
+codePopupOverlay.addEventListener('click', (e) => {
+    if (e.target === codePopupOverlay) closePopup(codePopupOverlay);
 });
 
+document.getElementById('editor-close').addEventListener('click', () => closePopup(editorOverlay));
+editorOverlay.addEventListener('click', (e) => {
+    if (e.target === editorOverlay) closePopup(editorOverlay);
+});
 
-// Copy to clipboard
 document.querySelectorAll('.copy').forEach(copyBtn => {
     copyBtn.addEventListener('click', (e) => {
-        const id = e.target.dataset.id;
-        selectText(id);
-        document.execCommand("copy");
-        e.target.textContent = 'Copied';
+        const button = e.currentTarget;
+        const id = button.dataset.id;
+        const textToCopy = document.getElementById(id).textContent;
 
-        setTimeout( time => e.target.textContent = 'Copy' , 300);
-    })
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const textSpan = button.querySelector('span') || button;
+            const originalText = textSpan.textContent;
+            button.disabled = true;
+            button.classList.add('copied');
+            textSpan.textContent = 'Copié!';
+            setTimeout(() => {
+                button.disabled = false;
+                button.classList.remove('copied');
+                textSpan.textContent = originalText;
+            }, 3000);
+        }).catch(err => console.error('Erreur de copie:', err));
+    });
 });
 
+document.querySelectorAll('.btn-edit').forEach(editBtn => {
+    editBtn.addEventListener('click', () => {
+        const loader = LOADERS[currentLoaderIndex];
+        editorHtml.value = loader.html;
+        editorCss.value = loader.css;
+        updateEditorPreview();
+        editorOverlay.classList.add('in');
+    });
+});
 
-// select Text
-function selectText(containerid) {
-    if (document.selection) { // IE
-        var range = document.body.createTextRange();
-        range.moveToElementText(document.getElementById(containerid));
-        range.select();
-    } else if (window.getSelection) {
-        var range = document.createRange();
-        range.selectNode(document.getElementById(containerid));
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
+editorHtml.addEventListener('input', updateEditorPreview);
+editorCss.addEventListener('input', updateEditorPreview);
+
+document.getElementById('copy-html-edited').addEventListener('click', (e) => {
+    navigator.clipboard.writeText(editorHtml.value).then(() => showFeedback(e.currentTarget, 'HTML Copié!'));
+});
+
+document.getElementById('copy-css-edited').addEventListener('click', (e) => {
+    navigator.clipboard.writeText(editorCss.value).then(() => showFeedback(e.currentTarget, 'CSS Copié!'));
+});
+
+document.getElementById('download-css').addEventListener('click', (e) => {
+    const blob = new Blob([editorCss.value], { type: 'text/css' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'loader.css';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showFeedback(e.currentTarget, 'Téléchargé!');
+});
+
+document.getElementById('download-zip').addEventListener('click', (e) => {
+    if (typeof JSZip === 'undefined') {
+        alert("La bibliothèque de ZIP n'a pas pu être chargée.");
+        return;
     }
-}
+    const zip = new JSZip();
+    zip.file("index.html", `<style>\n${editorCss.value}\n</style>\n${editorHtml.value}`);
+    zip.file("loader.css", editorCss.value);
+
+    zip.generateAsync({ type: "blob" }).then(function(content) {
+        const url = URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'custom-loader.zip';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showFeedback(e.currentTarget, 'ZIP Créé!');
+    });
+});
