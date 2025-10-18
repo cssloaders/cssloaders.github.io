@@ -9,4 +9,9 @@ export const LOADERS = [
     order: 2,
     loadStyles: () => import('./bubble').then((m) => m.loadBubbleStyles()),
   },
+  {
+    name: 'rect',
+    order: 3,
+    loadStyles: () => import('./rect').then((m) => m.loadRectStyles()),
+  },
 ];

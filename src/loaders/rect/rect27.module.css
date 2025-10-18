@@ -1,0 +1,23 @@
+.loader {
+  background: #de3500;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  text-align: center;
+  animation: 3s rotate linear infinite;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #FFFF;
+  animation: 1.5s rotate reverse linear infinite ;
+
+}
+@keyframes rotate {
+  0%{    transform: rotate(0deg)}
+  100%{    transform: rotate(360deg)}
+}

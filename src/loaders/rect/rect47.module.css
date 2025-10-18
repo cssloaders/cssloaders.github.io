@@ -1,0 +1,71 @@
+.loader {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  border-left: 24px solid #fff;
+  border-right: 24px solid #FF3D00;
+  position: absolute;
+  height: 24px;
+  width: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0px;
+  animation: splitX 1s linear infinite;
+}
+
+.loader:after {
+  border-left: 24px solid #FF3D00;
+  border-right: 24px solid #FFF;
+  top: 24px;
+  animation: splitAltX 1s linear infinite;
+}
+
+@keyframes splitAltX {
+  0% {
+    width: 48px;
+    transform: translate(-50%, 0)
+  }
+
+  33% {
+    width: 0px;
+    transform: translate(-50%, 0)
+  }
+
+  66% {
+    width: 0px;
+    transform: translate(-50%, -24px)
+  }
+
+  100% {
+    width: 48px;
+    transform: translate(-50%, -24px)
+  }
+}
+
+
+@keyframes splitX {
+  0% {
+    width: 0;
+    transform: translate(-50%, 0)
+  }
+
+  33% {
+    width: 96px;
+    transform: translate(-50%, 0)
+  }
+
+  66% {
+    width: 96px;
+    transform: translate(-50%, 24px)
+  }
+
+  100% {
+    width: 0;
+    transform: translate(-50%, 24px)
+  }
+}
