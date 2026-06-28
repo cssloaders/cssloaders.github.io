@@ -1,0 +1,34 @@
+const n=`.loader {
+        position: relative;
+        border: 24px solid;
+        border-color: #fff  transparent #fff transparent;
+        animation : rotate 2s linear infinite;
+      }
+      .loader:before,
+      .loader:after {
+        content:"";
+        display: block;
+        border: 24px solid transparent;
+        border-left-color: #fff;
+        position: absolute;
+        left: -24px;
+        top: -24px;
+        animation: mvx 1s infinite linear;
+      }
+      .loader:before {
+        border-color: transparent #fff transparent transparent;
+        animation-name:mvrx;
+        animation-delay: 0.5s;
+      }
+      @keyframes rotate {
+        100% {transform: rotate(360deg)}
+      }
+      @keyframes mvx {
+        20% , 80% {transform: translateX(0)}
+        50% {transform: translateX(-50%)}
+      }
+      @keyframes mvrx {
+        20% , 80% {transform: translateX(0)}
+        50% {transform: translateX(50%)}
+      }
+`;export{n as default};

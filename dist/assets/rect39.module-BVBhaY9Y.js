@@ -1,0 +1,32 @@
+const n=`.loader {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    background: linear-gradient(to right, #FFF 20%, #0000 21%);
+    background-repeat: repeat-x;
+    background-size: 36px 8px;
+    background-position: 9px bottom;
+    animation: moveX 0.5s linear infinite;
+  }
+  .loader::before  {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50% );
+    animation: rotate 0.5s linear infinite;
+}
+
+@keyframes moveX {
+  0%, 25%{    background-position: 10px bottom }
+  75% , 100% {background-position: -30px bottom;}
+}
+@keyframes rotate {
+  0%, 25% { transform:translate(-50% , -50% ) rotate(0deg)}
+  75%,  100% { transform:translate(-55% , -55% ) rotate(90deg)}
+}
+`;export{n as default};

@@ -1,0 +1,38 @@
+const n=`.loader {
+  width: 32px;
+  height: 32px;
+  transform: translateY(100%);
+  border-radius: 50%;
+  background: #FFF;
+  position: relative;
+}
+.loader:before , .loader:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #FFF;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -200%;
+}
+.loader:after {
+  animation: moveX 0.5s infinite linear alternate;
+}
+
+@keyframes moveX {
+  0% {
+    top: 0% ;
+    transform: translateX(-50%) scale(1.5);
+  }
+  50% {
+    top: -75% ;
+    transform: translateX(-50%) scale(0.5);
+  }
+  100% {
+    top: -200%;
+    transform: translateX(-50%) scale(1.5);
+  }
+}
+`;export{n as default};

@@ -1,0 +1,34 @@
+const n=`.loader {
+        width: 84px;
+        height: 84px;
+        position: relative;
+      }
+      .loader:before , .loader:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        width:84px;
+        height: 84px;
+        border-radius: 50%;
+        background:#FF3D00;
+        animation: push 1s infinite linear alternate;
+      }
+      .loader:after {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        background: #fff;
+        animation-direction: alternate-reverse;
+      }
+      @keyframes push {
+          0% {
+            width:14px;
+            height: 14px;
+          }
+          100% {
+            width:84px;
+            height: 84px;
+          }
+      }
+`;export{n as default};

@@ -1,0 +1,32 @@
+const n=`.loader {
+  width: 64px;
+  height: 48px;
+  position: relative;
+  animation: split 1s ease-in infinite alternate;
+}
+.loader::before , .loader::after {
+  content: '';
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  transform: translateX(-10px);
+  background: #FF3D00;
+  opacity: 0.75;
+  backdrop-filter: blur(20px);
+}
+
+.loader::after {
+  left: auto;
+  right: 0;
+  background: #FFF;
+  transform: translateX(10px);
+}
+
+@keyframes split {
+ 0% , 25%{ width: 64px }
+ 100%{ width: 148px }
+}
+`;export{n as default};

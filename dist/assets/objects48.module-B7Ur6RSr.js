@@ -1,0 +1,50 @@
+const n=`.loader {
+  width: 48px;
+  height: 86px;
+  position: relative;
+}
+
+.loader::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50% , 50%);
+  width: 10px;
+  height: 10px;
+  background: #FFF;
+  border-radius: 50%;
+  animation: bounce 1s ease-in infinite alternate;
+}
+.loader::after {
+  content: '';
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 48px;
+  height: 86px;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 50% / 25% 25% 25% 25%;
+  animation: kick 1s ease-in infinite alternate;
+}
+
+@keyframes bounce {
+  0% {
+    top: 0%;
+    opacity: 1;
+  }
+  100% {
+    top: 75%;
+    opacity: 0.2;
+  }
+}
+@keyframes kick {
+  0% , 75% {
+    height: 86px
+  }
+   100% {
+    height: 78px
+  }
+}
+`;export{n as default};
