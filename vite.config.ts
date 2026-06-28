@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/cssloaders.github.io/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
