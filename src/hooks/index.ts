@@ -1,1 +1,0 @@
-export { useScrollSpy } from './useScrollSpy';

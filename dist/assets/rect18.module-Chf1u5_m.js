@@ -1,9 +1,0 @@
-const f=`.loader {
-        border: 24px solid #fff;
-        border-color: #FF3D00 #fff  #fff #fff;
-        animation : rotate 2s steps(4) infinite;
-      }
-      @keyframes rotate {
-        100% { transform: rotate(360deg); }
-      }
-`;export{f as default};

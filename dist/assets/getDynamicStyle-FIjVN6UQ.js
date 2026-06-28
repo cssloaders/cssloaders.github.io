@@ -1,1 +1,0 @@
-function c(s,n){const l=async()=>{const a=Object.keys(s).sort().map(async t=>{const[r,o]=await Promise.all([s[t](),n[t]()]);return{styles:r.default,raw:o,fileName:t.replace(/.*\//,"")}});return await Promise.all(a)};return async function(){const e=[];if(e.length===0){const t=await l();e.push(...t)}return e}}export{c as g};
